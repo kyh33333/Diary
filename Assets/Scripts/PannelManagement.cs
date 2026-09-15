@@ -1,26 +1,118 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelAnimationController : MonoBehaviour
+public class PannelManagement : MonoBehaviour
 {
-    public Animator effectAnimator; // 연출용 애니메이터
-    public GameObject targetPanel;   // 열고자 하는 패널
+    public Animator effectAnimator;
 
-    // 버튼 OnClick()에 이 함수를 연결
-    public void OpenPanelWithDelay()
+    public GameObject MainPannel;
+    public GameObject MakeDiary;
+
+    public GameObject AddNewDiary;
+    public GameObject Settings;
+    public GameObject AchivementPannel;
+    public GameObject CharacterPannel;
+
+    public GameObject AddFeatureDiary;
+
+    private IEnumerator PlayAnim()
     {
-        StartCoroutine(OpenPanelRoutine());
+        if (effectAnimator != null)
+        {
+            effectAnimator.SetTrigger("OpenEffect");
+        }
+        yield return new WaitForSeconds(1.0f);
     }
 
-    IEnumerator OpenPanelRoutine()
+    public void ActiveMain() => StartCoroutine(ActiveMainRoutine());
+    private IEnumerator ActiveMainRoutine()
     {
-        // 1. 연출 애니메이션 트리거 실행
-        effectAnimator.SetTrigger("OpenEffect");
+        yield return PlayAnim();
+        MainPannel.SetActive(true);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(false);
+    }
 
-        // 2. 애니메이션 재생 시간만큼 대기 (예: 0.5초)
-        yield return new WaitForSeconds(0.5f);
+    public void ActiveMakeDiary() => StartCoroutine(ActiveMakeDiaryRoutine());
+    private IEnumerator ActiveMakeDiaryRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(true);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(false);
+    }
 
-        // 3. 패널 활성화
-        targetPanel.SetActive(true);
+    public void ActiveAddNewDiary() => StartCoroutine(ActiveAddNewDiaryRoutine());
+    private IEnumerator ActiveAddNewDiaryRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(true);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(false);
+    }
+
+    public void ActiveSettings() => StartCoroutine(ActiveSettingsRoutine());
+    private IEnumerator ActiveSettingsRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(true);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(false);
+    }
+
+    public void ActiveAchivementPannel() => StartCoroutine(ActiveAchivementPannelRoutine());
+    private IEnumerator ActiveAchivementPannelRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(true);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(false);
+    }
+
+    public void ActiveCharacterPannel() => StartCoroutine(ActiveCharacterPannelRoutine());
+    private IEnumerator ActiveCharacterPannelRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(true);
+        AddFeatureDiary.SetActive(false);
+    }
+
+    public void ActiveAddFeatureDiary() => StartCoroutine(ActiveAddFeatureDiaryRoutine());
+    private IEnumerator ActiveAddFeatureDiaryRoutine()
+    {
+        yield return PlayAnim();
+        MainPannel.SetActive(false);
+        MakeDiary.SetActive(false);
+        AddNewDiary.SetActive(false);
+        Settings.SetActive(false);
+        AchivementPannel.SetActive(false);
+        CharacterPannel.SetActive(false);
+        AddFeatureDiary.SetActive(true);
     }
 }

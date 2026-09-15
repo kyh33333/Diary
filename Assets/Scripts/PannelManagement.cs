@@ -1,74 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PannelManagement : MonoBehaviour
+public class PanelAnimationController : MonoBehaviour
 {
-    public GameObject MainPannel;
-    public GameObject MakeDiary;
+    public Animator effectAnimator; // 연출용 애니메이터
+    public GameObject targetPanel;   // 열고자 하는 패널
 
-    public GameObject AddNewDiary;
-    public GameObject Settings;
-    public GameObject AchivementPannel;
-    public GameObject CharacterPannel;
-
-    public void ActiveMain()
+    // 버튼 OnClick()에 이 함수를 연결
+    public void OpenPanelWithDelay()
     {
-        MainPannel.SetActive(true);
-        MakeDiary.SetActive(false);
-        AddNewDiary.SetActive(false);
-        Settings.SetActive(false);
-        AchivementPannel.SetActive(false);
-        CharacterPannel.SetActive(false);
+        StartCoroutine(OpenPanelRoutine());
     }
 
-    public void ActiveMakeDiary()
+    IEnumerator OpenPanelRoutine()
     {
-        MainPannel.SetActive(false);
-        MakeDiary.SetActive(true);
-        AddNewDiary.SetActive(false);
-        Settings.SetActive(false);
-        AchivementPannel.SetActive(false);
-        CharacterPannel.SetActive(false);
-    }
+        // 1. 연출 애니메이션 트리거 실행
+        effectAnimator.SetTrigger("OpenEffect");
 
-    public void ActiveAddNewDiary()
-    {
-        MainPannel.SetActive(false);
-        MakeDiary.SetActive(false);
-        AddNewDiary.SetActive(true);
-        Settings.SetActive(false);
-        AchivementPannel.SetActive(false);
-        CharacterPannel.SetActive(false);
-    }
+        // 2. 애니메이션 재생 시간만큼 대기 (예: 0.5초)
+        yield return new WaitForSeconds(0.5f);
 
-    public void ActiveSettings()
-    {
-        MainPannel.SetActive(false);
-        MakeDiary.SetActive(false);
-        AddNewDiary.SetActive(false);
-        Settings.SetActive(true);
-        AchivementPannel.SetActive(false);
-        CharacterPannel.SetActive(false);
-    }
-
-    public void ActiveAchivementPannel()
-    {
-        MainPannel.SetActive(false);
-        MakeDiary.SetActive(false);
-        AddNewDiary.SetActive(false);
-        Settings.SetActive(false);
-        AchivementPannel.SetActive(true);
-        CharacterPannel.SetActive(false);
-    }
-
-    public void ActiveCharacterPannel() 
-    {
-        MainPannel.SetActive(false);
-        MakeDiary.SetActive(false);
-        AddNewDiary.SetActive(false);
-        Settings.SetActive(false);
-        AchivementPannel.SetActive(false);
-        CharacterPannel.SetActive(true);
+        // 3. 패널 활성화
+        targetPanel.SetActive(true);
     }
 }
